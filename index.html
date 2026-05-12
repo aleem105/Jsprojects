@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 JavaScript Projects - Complete Bundle with Age Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Navigation Bar */
+        .nav {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .nav h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .nav p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Projects Container */
+        .projects-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s;
+        }
+
+        .project.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .project h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* ============ TO-DO LIST STYLES ============ */
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        .todo-item:hover { transform: translateX(5px); }
+        .todo-item.completed { opacity: 0.6; background: #e9ecef; }
+        .todo-item.completed .todo-text { text-decoration: line-through; }
+        .todo-text { flex: 1; margin-left: 10px; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        .input-group input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 8px; }
+        .delete-btn { background: #dc3545; }
+        .clear-btn { background: #6c757d; margin-top: 20px; width: 100%; }
+        .stats { display: flex; justify-content: space-between; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px; }
+        .stat-item { text-align: center; flex: 1; }
+        .stat-number { font-size: 24px; font-weight: bold; color: #667eea; }
+
+        /* ============ PASSWORD STRENGTH STYLES ============ */
+        .strength-meter { padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; margin: 15px 0; }
+        .weak { background: #ff4444; color: white; }
+        .medium { background: #ffa500; color: white; }
+        .strong { background: #00c851; color: white; }
+
+        /* ============ RECIPE FINDER STYLES ============ */
+        .recipe-card { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #667eea; }
+
+        /* ============ QUIZ STYLES ============ */
+        .quiz-option { margin: 10px 0; padding: 12px; background: #f8f9fa; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .quiz-option:hover { background: #e9ecef; transform: translateX(5px); }
+
+        /* ============ PROFESSIONAL CALCULATOR STYLES ============ */
+        .calculator-box {
+            background: #1a1a1a;
+            padding: 25px;
+            border-radius: 25px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        #calcDisplay {
+            width: 100%;
+            height: 80px;
+            font-size: 2rem;
+            text-align: right;
+            padding: 15px;
+            background: #262626;
+            color: #ffcc00;
+            border: 2px solid #ffcc00;
+            border-radius: 15px;
+            font-family: monospace;
+            margin-bottom: 20px;
+        }
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .calc-btn {
+            padding: 18px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            background: #3d3d3d;
+            color: white;
+            transition: all 0.3s;
+        }
+        .calc-btn:hover { background: #555; transform: scale(1.02); }
+        .operator-btn { background: #ff9500; }
+        .equal-btn { background: #ff9500; grid-column: span 2; }
+        .clear-btn { background: #dc3545; }
+
+        /* ============ STOPWATCH STYLES ============ */
+        .stopwatch-display { font-size: 48px; font-family: monospace; text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px; margin: 20px 0; }
+
+        /* ============ NOTES APP STYLES ============ */
+        .note-card { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #667eea; }
+        .note-title { font-size: 18px; font-weight: bold; }
+
+        /* ============ AGE CALCULATOR - ANIMATED BORDER ============ */
+        .age-box {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 35px;
+            border-radius: 25px;
+            max-width: 450px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .age-box::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ffcc00, #ff9500, #ff6b00, #ffcc00, #ff9500, #ff6b00);
+            background-size: 300% 300%;
+            border-radius: 28px;
+            z-index: -1;
+            animation: borderGlow 2s ease infinite;
+        }
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 50%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .age-box:hover::before { animation: borderGlow 1s ease infinite; }
+        .age-box h3 { color: #ffcc00; text-align: center; margin-bottom: 25px; }
+        .age-input-wrapper { position: relative; margin-bottom: 20px; }
+        .age-input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            background: #262626;
+            border: 2px solid #ffcc00;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+        }
+        .calendar-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 8px;
+            border-radius: 8px;
+        }
+        .age-input::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
+        .age-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ffcc00;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .age-btn:hover { background: #e6b800; transform: translateY(-2px); }
+        #ageResult {
+            margin-top: 25px;
+            text-align: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: white;
+        }
+        .age-highlight { color: #ffcc00; font-weight: bold; font-size: 1.3rem; }
+
+        /* ============ MEMORY GAME STYLES ============ */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 30px;
+            transition: all 0.3s;
+        }
+        .memory-card.flipped { background: white; transform: scale(0.95); }
+        .memory-card.matched { opacity: 0.5; cursor: default; background: #28a745; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-buttons { flex-direction: column; }
+            .memory-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        /* Two Column Layout */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 25px;
+        }
+
+        /* Video Player Card */
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            background: #000;
+            width: 100%;
+        }
+
+        #videoPlayer {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: contain;
+        }
+
+        /* Custom Controls */
+        .custom-controls {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 15px 20px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-filled {
+            width: 0%;
+            height: 100%;
+            background: #ffcc00;
+            border-radius: 3px;
+            position: relative;
+            transition: width 0.1s linear;
+        }
+
+        .progress-filled::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: #ffcc00;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .progress-bar:hover .progress-filled::after {
+            opacity: 1;
+        }
+
+        .time {
+            color: white;
+            font-size: 13px;
+            font-family: monospace;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        /* Control Buttons */
+        .controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .controls-left, .controls-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .control-btn:hover {
+            background: #ffcc00;
+            color: #1a1a2e;
+            transform: scale(1.1);
+        }
+
+        .play-btn {
+            background: #ffcc00;
+            color: #1a1a2e;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .upload-area h3 {
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .drop-zone {
+            border: 2px dashed #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .drop-zone:hover {
+            border-color: #764ba2;
+            background: #f0f0f0;
+        }
+
+        .drop-zone.dragover {
+            border-color: #ffcc00;
+            background: #fff3cd;
+        }
+
+        .drop-zone input {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .upload-text {
+            color: #666;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Playlist Section */
+        .playlist-section {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .playlist-header h3 {
+            color: #333;
+        }
+
+        .playlist-count {
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .url-input {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .url-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .url-input button {
+            padding: 8px 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .playlist-items {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .playlist-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .playlist-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .playlist-thumb {
+            width: 50px;
+            height: 45px;
+            background: #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .playlist-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .playlist-title {
+            font-weight: bold;
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .playlist-duration {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .delete-video {
+            background: #dc3545;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .delete-video:hover {
+            background: #c82333;
+            transform: scale(1.1);
+        }
+
+        /* Volume Control */
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .volume-slider {
+            width: 70px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+            background: #ffcc00;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .speed-select {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 6px 10px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            display: none;
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar */
+        .playlist-items::-webkit-scrollbar {
+            width: 6px;
+        }
+        .playlist-items::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .playlist-items::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <h1>10 JavaScript Projects</h1>
+        <p>Professional Calculator + Animated Age Calculator + 8 More Projects</p>
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="showProject('todo')">✅ To-Do List</button>
+            <button class="nav-btn" onclick="showProject('password')">🔐 Password Checker</button>
+            <button class="nav-btn" onclick="showProject('recipe')">🍳 Recipe Finder</button>
+            <button class="nav-btn" onclick="showProject('quiz')">📝 Quiz App</button>
+            <button class="nav-btn" onclick="showProject('calculator')">🧮 Calculator</button>
+            <button class="nav-btn" onclick="showProject('stopwatch')">⏱️ Stopwatch</button>
+            <button class="nav-btn" onclick="showProject('notes')">📓 Notes App</button>
+            <button class="nav-btn" onclick="showProject('agecalc')">🎂 Age Calculator</button>
+            <button class="nav-btn" onclick="showProject('memory')">🎴 Memory Game</button>
+            <button class="nav-btn" onclick="showProject('videoplayer')">🎬 Video Player</button>
+        </div>
+    </div>
+
+    <div class="projects-container">
+        <!-- PROJECT 1: TO-DO LIST -->
+        <div id="todo" class="project active">
+            <h2>✅ To-Do List App</h2>
+            <p>🎓 DOM manipulation | localStorage | Event handling</p>
+            <div class="input-group">
+                <input type="text" id="todoInput" placeholder="Enter a new task..." onkeypress="handleTodoEnter(event)">
+                <button onclick="addTodo()">➕ Add Task</button>
+            </div>
+            <div id="todoList"></div>
+            <div class="stats">
+                <div class="stat-item"><div class="stat-number" id="totalTasks">0</div><div>Total</div></div>
+                <div class="stat-item"><div class="stat-number" id="completedTasks">0</div><div>Completed</div></div>
+                <div class="stat-item"><div class="stat-number" id="pendingTasks">0</div><div>Pending</div></div>
+            </div>
+            <button class="clear-btn" onclick="clearAllTodos()">🗑️ Clear All Tasks</button>
+        </div>
+
+        <!-- PROJECT 2: PASSWORD STRENGTH CHECKER -->
+        <div id="password" class="project">
+            <h2>🔐 Password Strength Checker</h2>
+            <p>🎓 Regular expressions | Real-time validation</p>
+            <input type="password" id="passwordInput" placeholder="Enter password..." style="width: 100%; padding: 12px;">
+            <div id="strengthMeter" class="strength-meter">Enter password to check strength</div>
+            <ul style="margin-top: 15px; font-size: 13px; color: #666;">
+                <li>✓ 8+ characters</li><li>✓ Uppercase letter</li><li>✓ Lowercase letter</li>
+                <li>✓ Number</li><li>✓ Special character (!@#$%^&*)</li>
+            </ul>
+        </div>
+
+        <!-- PROJECT 3: RECIPE FINDER -->
+        <div id="recipe" class="project">
+            <h2>🍳 Recipe Finder</h2>
+            <p>🎓 API integration | Dynamic content</p>
+            <div class="input-group">
+                <input type="text" id="ingredientInput" placeholder="Ingredients (e.g., chicken, rice)...">
+                <button onclick="searchRecipes()">🔍 Find Recipes</button>
+            </div>
+            <div id="recipeResults"></div>
+        </div>
+
+        <!-- PROJECT 4: QUIZ APP -->
+        <div id="quiz" class="project">
+            <h2>📝 Quiz App</h2>
+            <p>🎓 Arrays & Objects | State management</p>
+            <div id="quizQuestion"></div>
+            <div id="quizOptions"></div>
+            <button onclick="nextQuestion()" id="nextBtn" style="margin-top: 20px;">Next Question →</button>
+            <button onclick="restartQuiz()" id="restartBtn" style="display:none; margin-top: 20px;">🔄 Restart Quiz</button>
+            <div id="quizScore" style="margin-top: 15px; font-weight: bold;"></div>
+        </div>
+
+        <!-- PROJECT 5: PROFESSIONAL CALCULATOR (UPDATED) -->
+        <div id="calculator" class="project">
+            <h2>🧮 Professional Calculator</h2>
+            <p>🎓 Math operations | Keyboard support | Error handling</p>
+            <div class="calculator-box">
+                <input type="text" id="calcDisplay" readonly placeholder="0">
+                <div class="calc-buttons">
+                    <button class="calc-btn clear-btn" onclick="clearDisplay()">C</button>
+                    <button class="calc-btn clear-btn" onclick="deleteLast()">DEL</button>
+                    <button class="calc-btn operator-btn" onclick="appendToDisplay('%')">%</button>
+                    <button class="calc-btn operator-btn" onclick="appendToDisplay('/')">÷</button>
+                    <button class="calc-btn" onclick="appendToDisplay('7')">7</button>
+                    <button class="calc-btn" onclick="appendToDisplay('8')">8</button>
+                    <button class="calc-btn" onclick="appendToDisplay('9')">9</button>
+                    <button class="calc-btn operator-btn" onclick="appendToDisplay('*')">×</button>
+                    <button class="calc-btn" onclick="appendToDisplay('4')">4</button>
+                    <button class="calc-btn" onclick="appendToDisplay('5')">5</button>
+                    <button class="calc-btn" onclick="appendToDisplay('6')">6</button>
+                    <button class="calc-btn operator-btn" onclick="appendToDisplay('-')">-</button>
+                    <button class="calc-btn" onclick="appendToDisplay('1')">1</button>
+                    <button class="calc-btn" onclick="appendToDisplay('2')">2</button>
+                    <button class="calc-btn" onclick="appendToDisplay('3')">3</button>
+                    <button class="calc-btn operator-btn" onclick="appendToDisplay('+')">+</button>
+                    <button class="calc-btn" onclick="appendToDisplay('0')">0</button>
+                    <button class="calc-btn" onclick="appendToDisplay('.')">.</button>
+                    <button class="calc-btn equal-btn" onclick="calculateResult()">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROJECT 6: STOPWATCH -->
+        <div id="stopwatch" class="project">
+            <h2>⏱️ Stopwatch & Timer</h2>
+            <p>🎓 setInterval/clearInterval | Time management</p>
+            <div class="stopwatch-display" id="stopwatchDisplay">00:00:00</div>
+            <div style="text-align: center;">
+                <button onclick="startStopwatch()">▶️ Start</button>
+                <button onclick="pauseStopwatch()">⏸️ Pause</button>
+                <button onclick="resetStopwatch()">🔄 Reset</button>
+                <button onclick="recordLap()">⏱️ Lap</button>
+            </div>
+            <div id="lapsList" style="margin-top: 20px; max-height: 200px; overflow-y: auto;"></div>
+        </div>
+
+        <!-- PROJECT 7: NOTES APP -->
+        <div id="notes" class="project">
+            <h2>📓 Notes App</h2>
+            <p>🎓 CRUD operations | localStorage</p>
+            <input type="text" id="noteTitle" placeholder="Note title..." style="width: 100%; margin-bottom: 10px; padding: 12px;">
+            <textarea id="noteContent" rows="4" placeholder="Write your note here..." style="width: 100%; padding: 12px;"></textarea>
+            <button onclick="addNote()">💾 Save Note</button>
+            <div id="notesList" style="margin-top: 20px;"></div>
+        </div>
+
+        <!-- PROJECT 8: AGE CALCULATOR (UPDATED - ANIMATED BORDER) -->
+        <div id="agecalc" class="project">
+            <h2>🎂 Age Calculator with Animated Border</h2>
+            <p>🎓 Date calculations | Animated UI | Real-time updates</p>
+            <div class="age-box">
+                <h3>📅 Calculate Your Exact Age</h3>
+                <div class="age-input-wrapper">
+                    <span class="calendar-icon">📅</span>
+                    <input type="date" id="dob" class="age-input">
+                </div>
+                <button class="age-btn" onclick="calculateAge()">✨ Calculate Age ✨</button>
+                <div id="ageResult">🎯 Select your birth date above</div>
+            </div>
+        </div>
+
+        <!-- PROJECT 9: MEMORY CARD GAME -->
+        <div id="memory" class="project">
+            <h2>🎴 Memory Card Game</h2>
+            <p>🎓 Game logic | Array shuffling | Animations</p>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span style="margin-right: 20px;">Moves: <span id="moves">0</span></span>
+                <span>Matches: <span id="matches">0</span>/8</span>
+            </div>
+            <div class="memory-grid" id="memoryGrid"></div>
+            <button onclick="initMemoryGame()" style="display: block; margin: 20px auto;">🔄 New Game</button>
+        </div>
+         <div class="container">
+        <div class="header">
+            <h1>🎬 Professional Video Player</h1>
+            <p>Import videos from your computer | Add YouTube/Vimeo/Any URL | Create playlist</p>
+        </div>
+
+        <div class="two-columns">
+            <!-- Left Column: Video Player -->
+            <div class="video-card">
+                <div class="video-container">
+                    <video id="videoPlayer" poster="https://via.placeholder.com/800x450?text=Select+or+Import+Video"></video>
+                </div>
+                
+                <div class="custom-controls">
+                    <!-- Progress Bar -->
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-filled" id="progressFilled"></div>
+                        </div>
+                        <div class="time">
+                            <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Controls Row -->
+                    <div class="controls-row">
+                        <div class="controls-left">
+                            <button class="control-btn play-btn" id="playPauseBtn">▶️</button>
+                            <button class="control-btn" id="stopBtn">⏹️</button>
+                            <button class="control-btn" id="prevBtn">⏮️</button>
+                            <button class="control-btn" id="nextBtn">⏭️</button>
+                            <button class="control-btn" id="muteBtn">🔊</button>
+                            <div class="volume-container">
+                                <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="100">
+                            </div>
+                        </div>
+                        <div class="controls-right">
+                            <select id="speedSelect" class="speed-select">
+                                <option value="0.5">0.5x</option>
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1x</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2">2x</option>
+                            </select>
+                            <button class="control-btn" id="fullscreenBtn">⛶</button>
+                            <button class="control-btn" id="pipBtn">📺</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Upload + Playlist -->
+            <div>
+                <!-- Upload Area -->
+                <div class="upload-area">
+                    <h3>📤 Import Video</h3>
+                    <div class="drop-zone" id="dropZone">
+                        <div class="upload-icon">🎬</div>
+                        <div class="upload-text">Drag & Drop video file here or click to browse</div>
+                        <input type="file" id="fileInput" accept="video/mp4,video/webm,video/ogg,video/avi,video/mov">
+                        <div><button class="upload-btn" onclick="document.getElementById('fileInput').click()">📁 Choose File</button></div>
+                        <div class="upload-text" style="font-size: 12px; margin-top: 10px;">Supported: MP4, WebM, OGG, AVI, MOV</div>
+                    </div>
+                </div>
+
+                <!-- Playlist Section -->
+                <div class="playlist-section">
+                    <div class="playlist-header">
+                        <h3>📋 Playlist <span class="playlist-count" id="playlistCount">0</span></h3>
+                    </div>
+                    <div class="url-input">
+                        <input type="text" id="videoUrlInput" placeholder="Enter video URL (MP4, WebM, etc.)">
+                        <button onclick="addUrlToPlaylist()">➕ Add URL</button>
+                    </div>
+                    <div class="playlist-items" id="playlistItems">
+                        <div style="text-align:center; padding:30px; color:#999;">No videos yet. Import or add URL above!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    </div>
+
+    <script>
+        // ==================== NAVIGATION ====================
+        function showProject(projectId) {
+            document.querySelectorAll('.project').forEach(p => p.classList.remove('active'));
+            document.getElementById(projectId).classList.add('active');
+        }
+
+        // ==================== TO-DO LIST ====================
+        let todos = [];
+        function loadTodos() {
+            const saved = localStorage.getItem('todos');
+            if (saved) { todos = JSON.parse(saved); renderTodos(); }
+        }
+        function saveTodos() { localStorage.setItem('todos', JSON.stringify(todos)); updateTodoStats(); }
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            if (input.value.trim()) {
+                todos.push({ id: Date.now(), text: input.value.trim(), completed: false });
+                saveTodos(); renderTodos(); input.value = '';
+            }
+        }
+        function toggleTodo(id) {
+            const todo = todos.find(t => t.id === id);
+            if (todo) { todo.completed = !todo.completed; saveTodos(); renderTodos(); }
+        }
+        function deleteTodo(id) {
+            todos = todos.filter(t => t.id !== id);
+            saveTodos(); renderTodos();
+        }
+        function clearAllTodos() {
+            if (confirm('Clear all tasks?')) { todos = []; saveTodos(); renderTodos(); }
+        }
+        function updateTodoStats() {
+            document.getElementById('totalTasks').textContent = todos.length;
+            document.getElementById('completedTasks').textContent = todos.filter(t => t.completed).length;
+            document.getElementById('pendingTasks').textContent = todos.filter(t => !t.completed).length;
+        }
+        function renderTodos() {
+            const container = document.getElementById('todoList');
+            if (!container) return;
+            if (todos.length === 0) { container.innerHTML = '<p style="text-align:center; color:#999;">No tasks yet</p>'; updateTodoStats(); return; }
+            container.innerHTML = todos.map(todo => `
+                <div class="todo-item ${todo.completed ? 'completed' : ''}">
+                    <input type="checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleTodo(${todo.id})">
+                    <span class="todo-text">${todo.text}</span>
+                    <button class="delete-btn" onclick="deleteTodo(${todo.id})">Delete</button>
+                </div>
+            `).join('');
+            updateTodoStats();
+        }
+        function handleTodoEnter(event) { if (event.key === 'Enter') addTodo(); }
+
+        // ==================== PASSWORD CHECKER ====================
+        function checkPasswordStrength() {
+            const pwd = document.getElementById('passwordInput').value;
+            const meter = document.getElementById('strengthMeter');
+            let strength = 0;
+            if (pwd.length >= 8) strength++;
+            if (/[A-Z]/.test(pwd)) strength++;
+            if (/[a-z]/.test(pwd)) strength++;
+            if (/[0-9]/.test(pwd)) strength++;
+            if (/[!@#$%^&*]/.test(pwd)) strength++;
+            if (!pwd) { meter.className = 'strength-meter'; meter.textContent = 'Enter password'; }
+            else if (strength <= 2) { meter.className = 'strength-meter weak'; meter.textContent = 'WEAK - Add more characters'; }
+            else if (strength <= 4) { meter.className = 'strength-meter medium'; meter.textContent = 'MEDIUM - Good but can be stronger'; }
+            else { meter.className = 'strength-meter strong'; meter.textContent = 'STRONG - Excellent password!'; }
+        }
+
+        // ==================== RECIPE FINDER ====================
+        function searchRecipes() {
+            const ingredients = document.getElementById('ingredientInput').value.trim();
+            const resultsDiv = document.getElementById('recipeResults');
+            if (!ingredients) { resultsDiv.innerHTML = '<p style="color:red;">Enter ingredients!</p>'; return; }
+            resultsDiv.innerHTML = '<p>Searching recipes...</p>';
+            setTimeout(() => {
+                const recipes = [
+                    { name: `${ingredients} Stir Fry`, time: '20 min', difficulty: 'Easy' },
+                    { name: `${ingredients} Pasta`, time: '25 min', difficulty: 'Medium' },
+                    { name: `${ingredients} Soup`, time: '30 min', difficulty: 'Easy' }
+                ];
+                resultsDiv.innerHTML = `<h3>Found ${recipes.length} recipes:</h3>` + recipes.map(r => `<div class="recipe-card"><strong>🍽️ ${r.name}</strong><br>⏱️ ${r.time} | 📊 ${r.difficulty}</div>`).join('');
+            }, 500);
+        }
+
+        // ==================== QUIZ APP ====================
+        const quizData = [
+            { q: "What does HTML stand for?", opts: ["Hyper Text Markup Language", "High Tech Modern Language", "Hyper Transfer Markup Language", "Home Tool Markup Language"], correct: 0 },
+            { q: "Which is a JavaScript framework?", opts: ["Django", "React", "Rails", "Flask"], correct: 1 },
+            { q: "What does CSS stand for?", opts: ["Creative Style Sheets", "Computer Style Sheets", "Cascading Style Sheets", "Colorful Style Sheets"], correct: 2 },
+            { q: "Which symbol is used for comments in JavaScript?", opts: ["<!-- -->", "//", "#", "/* */"], correct: 1 },
+            { q: "What is the correct way to write a JavaScript array?", opts: ["{1,2,3}", "(1,2,3)", "[1,2,3]", "<1,2,3>"], correct: 2 }
+        ];
+        let currentQ = 0, quizScore = 0, selectedAns = null;
+        function loadQuestion() {
+            if (currentQ < quizData.length) {
+                const q = quizData[currentQ];
+                document.getElementById('quizQuestion').innerHTML = `<h3>Question ${currentQ+1}/${quizData.length}</h3><p style="font-size:18px; margin:15px 0;">${q.q}</p>`;
+                document.getElementById('quizOptions').innerHTML = q.opts.map((opt,idx) => `<div class="quiz-option" onclick="selectAnswer(${idx})" id="opt${idx}">${String.fromCharCode(65+idx)}. ${opt}</div>`).join('');
+                document.getElementById('nextBtn').style.display = 'block';
+                document.getElementById('restartBtn').style.display = 'none';
+                document.getElementById('quizScore').innerHTML = `Score: ${quizScore}/${quizData.length}`;
+            } else { showResult(); }
+        }
+        function selectAnswer(selected) {
+            selectedAns = selected;
+            for(let i=0;i<4;i++) {
+                let opt = document.getElementById(`opt${i}`);
+                if(opt) { opt.style.background = i===selected ? '#667eea' : '#f8f9fa'; opt.style.color = i===selected ? 'white' : 'black'; }
+            }
+        }
+        function nextQuestion() {
+            if(selectedAns === null) { alert('Select an answer!'); return; }
+            if(selectedAns === quizData[currentQ].correct) quizScore++;
+            currentQ++; selectedAns = null; loadQuestion();
+        }
+        function showResult() {
+            document.getElementById('quizQuestion').innerHTML = `<h3>🎉 Quiz Completed!</h3><p style="font-size:24px; margin:20px;">Your Score: ${quizScore}/${quizData.length}</p>`;
+            document.getElementById('quizOptions').innerHTML = '';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('restartBtn').style.display = 'block';
+            document.getElementById('quizScore').innerHTML = '';
+        }
+        function restartQuiz() { currentQ = 0; quizScore = 0; selectedAns = null; loadQuestion(); }
+
+        // ==================== PROFESSIONAL CALCULATOR ====================
+        const calcDisplay = document.getElementById('calcDisplay');
+        function appendToDisplay(val) { if (calcDisplay.value === 'Error') calcDisplay.value = ''; calcDisplay.value += val; }
+        function clearDisplay() { calcDisplay.value = ''; }
+        function deleteLast() { calcDisplay.value = calcDisplay.value.slice(0, -1); }
+        function calculateResult() {
+            try {
+                let expr = calcDisplay.value.replace(/×/g, '*').replace(/÷/g, '/');
+                calcDisplay.value = eval(expr);
+            } catch(e) { calcDisplay.value = 'Error'; setTimeout(() => { if(calcDisplay.value === 'Error') clearDisplay(); }, 1500); }
+        }
+        document.addEventListener('keydown', (e) => {
+            const active = document.querySelector('.project.active');
+            if (active && active.id === 'calculator') {
+                if (/[0-9+\-*/.%]/.test(e.key)) appendToDisplay(e.key);
+                else if (e.key === 'Enter') calculateResult();
+                else if (e.key === 'Escape') clearDisplay();
+                else if (e.key === 'Backspace') deleteLast();
+            }
+        });
+
+        // ==================== STOPWATCH ====================
+        let stopwatchInterval = null, stopwatchTime = 0;
+        function formatTime(ms) {
+            let hours = Math.floor(ms / 3600000);
+            let minutes = Math.floor((ms % 3600000) / 60000);
+            let seconds = Math.floor((ms % 60000) / 1000);
+            return `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+        }
+        function updateStopwatchDisplay() { document.getElementById('stopwatchDisplay').textContent = formatTime(stopwatchTime); }
+        function startStopwatch() {
+            if(stopwatchInterval) return;
+            let startTime = Date.now() - stopwatchTime;
+            stopwatchInterval = setInterval(() => { stopwatchTime = Date.now() - startTime; updateStopwatchDisplay(); }, 100);
+        }
+        function pauseStopwatch() { if(stopwatchInterval) { clearInterval(stopwatchInterval); stopwatchInterval = null; } }
+        function resetStopwatch() { pauseStopwatch(); stopwatchTime = 0; updateStopwatchDisplay(); document.getElementById('lapsList').innerHTML = ''; }
+        function recordLap() {
+            const lapTime = formatTime(stopwatchTime);
+            const lapsDiv = document.getElementById('lapsList');
+            lapsDiv.innerHTML += `<div style="background:#f8f9fa; padding:10px; margin:5px 0; border-radius:8px;">Lap ${lapsDiv.children.length + 1}: ${lapTime}</div>`;
+        }
+
+        // ==================== NOTES APP ====================
+        let notes = [];
+        function loadNotes() { const saved = localStorage.getItem('notes'); if(saved) { notes = JSON.parse(saved); renderNotes(); } }
+        function saveNotes() { localStorage.setItem('notes', JSON.stringify(notes)); }
+        function addNote() {
+            const title = document.getElementById('noteTitle').value.trim();
+            const content = document.getElementById('noteContent').value.trim();
+            if(title || content) {
+                notes.push({ id: Date.now(), title: title || 'Untitled', content: content, date: new Date().toLocaleDateString() });
+                saveNotes(); renderNotes();
+                document.getElementById('noteTitle').value = '';
+                document.getElementById('noteContent').value = '';
+            }
+        }
+        function deleteNote(id) { notes = notes.filter(n => n.id !== id); saveNotes(); renderNotes(); }
+        function renderNotes() {
+            const container = document.getElementById('notesList');
+            if(!container) return;
+            if(notes.length === 0) { container.innerHTML = '<p style="color:#999;">No notes yet</p>'; return; }
+            container.innerHTML = notes.map(note => `
+                <div class="note-card">
+                    <div class="note-title">📝 ${note.title}</div>
+                    <div style="color:#666; font-size:12px;">${note.date}</div>
+                    <div style="margin:10px 0;">${note.content}</div>
+                    <button onclick="deleteNote(${note.id})" style="background:#dc3545;">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        // ==================== AGE CALCULATOR (ANIMATED BORDER) ====================
+        function calculateAge() {
+            const birthDateInput = document.getElementById('dob').value;
+            const resultDisplay = document.getElementById('ageResult');
+            if (!birthDateInput) { resultDisplay.innerHTML = "⚠️ Please select your birth date!"; return; }
+            const birthDate = new Date(birthDateInput);
+            const today = new Date();
+            if (birthDate > today) { resultDisplay.innerHTML = "❌ Birth date cannot be in the future!"; return; }
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+            if (days < 0) { months--; const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0); days += lastMonth.getDate(); }
+            if (months < 0) { years--; months += 12; }
+            const totalDays = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+            const totalWeeks = Math.floor(totalDays / 7);
+            const totalMonths = years * 12 + months;
+            resultDisplay.innerHTML = `
+                🎉 <strong>Your Age is:</strong><br>
+                <span class="age-highlight">${years}</span> Years, 
+                <span class="age-highlight">${months}</span> Months, 
+                <span class="age-highlight">${days}</span> Days
+                <hr style="margin:10px 0; border-color:#ffcc00;">
+                📊 <strong>More Details:</strong><br>
+                • Total Months: <span class="age-highlight">${totalMonths}</span><br>
+                • Total Weeks: <span class="age-highlight">${totalWeeks}</span><br>
+                • Total Days: <span class="age-highlight">${totalDays}</span>
+            `;
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const dobInput = document.getElementById('dob');
+            if(dobInput) dobInput.max = new Date().toISOString().split('T')[0];
+        });
+
+        // ==================== MEMORY GAME ====================
+        const emojis = ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼'];
+        let cards = [], flippedCards = [], matchedCards = [], moves = 0, lockBoard = false;
+        function shuffleArray(arr) { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+        function initMemoryGame() {
+            cards = shuffleArray([...emojis]);
+            flippedCards = []; matchedCards = []; moves = 0; lockBoard = false;
+            document.getElementById('moves').textContent = moves;
+            document.getElementById('matches').textContent = '0';
+            renderMemoryGame();
+        }
+        function renderMemoryGame() {
+            const grid = document.getElementById('memoryGrid');
+            if(!grid) return;
+            grid.innerHTML = cards.map((card, index) => `
+                <div class="memory-card ${flippedCards.includes(index) || matchedCards.includes(index) ? 'flipped' : ''} ${matchedCards.includes(index) ? 'matched' : ''}" onclick="flipCard(${index})">
+                    ${flippedCards.includes(index) || matchedCards.includes(index) ? card : '?'}
+                </div>
+            `).join('');
+        }
+        function flipCard(index) {
+            if(lockBoard || flippedCards.includes(index) || matchedCards.includes(index) || flippedCards.length === 2) return;
+            flippedCards.push(index);
+            moves++;
+            document.getElementById('moves').textContent = moves;
+            renderMemoryGame();
+            if(flippedCards.length === 2) checkMatch();
+        }
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if(cards[card1] === cards[card2]) {
+                matchedCards.push(card1, card2);
+                flippedCards = [];
+                document.getElementById('matches').textContent = matchedCards.length / 2;
+                if(matchedCards.length === cards.length) setTimeout(() => alert(`🎉 You won! Moves: ${moves}`), 100);
+                renderMemoryGame();
+            } else {
+                lockBoard = true;
+                setTimeout(() => { flippedCards = []; lockBoard = false; renderMemoryGame(); }, 1000);
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTodos();
+            loadNotes();
+            initMemoryGame();
+            loadQuestion();
+            document.getElementById('passwordInput')?.addEventListener('input', checkPasswordStrength);
+        });
+         // Video Elements
+        const video = document.getElementById('videoPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const speedSelect = document.getElementById('speedSelect');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const pipBtn = document.getElementById('pipBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFilled = document.getElementById('progressFilled');
+        const currentTimeSpan = document.getElementById('currentTime');
+        const durationSpan = document.getElementById('duration');
+
+        // Playlist
+        let playlist = [];
+        let currentVideoIndex = -1;
+
+        // Load playlist from localStorage
+        function loadPlaylist() {
+            const saved = localStorage.getItem('videoPlaylist');
+            if (saved) {
+                playlist = JSON.parse(saved);
+            } else {
+                playlist = [];
+            }
+            renderPlaylist();
+        }
+
+        // Save playlist to localStorage
+        function savePlaylist() {
+            localStorage.setItem('videoPlaylist', JSON.stringify(playlist));
+            document.getElementById('playlistCount').textContent = playlist.length;
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            notification.style.background = type === 'error' ? '#dc3545' : (type === 'success' ? '#28a745' : '#333');
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2500);
+        }
+
+        // Format time
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '00:00';
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            if (hrs > 0) {
+                return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Load video
+        function loadVideo(index) {
+            if (index >= 0 && index < playlist.length) {
+                currentVideoIndex = index;
+                const videoData = playlist[index];
+                video.src = videoData.url;
+                video.load();
+                video.play().catch(e => console.log('Auto-play prevented'));
+                playPauseBtn.textContent = '⏸️';
+                renderPlaylist();
+                showNotification(`▶️ Now playing: ${videoData.title}`, 'info');
+            }
+        }
+
+        // Add video to playlist
+        function addVideoToPlaylist(title, url, isLocal = false) {
+            if (!url) {
+                showNotification('❌ Please provide a video file or URL!', 'error');
+                return false;
+            }
+
+            const videoTitle = title || `Video ${playlist.length + 1}`;
+            
+            playlist.push({
+                title: videoTitle,
+                url: url,
+                duration: "0:00",
+                isLocal: isLocal
+            });
+
+            savePlaylist();
+            renderPlaylist();
+            
+            if (playlist.length === 1) {
+                loadVideo(0);
+            }
+            
+            showNotification(`✅ "${videoTitle}" added to playlist!`, 'success');
+            return true;
+        }
+
+        // Add URL to playlist
+        function addUrlToPlaylist() {
+            const url = document.getElementById('videoUrlInput').value.trim();
+            if (!url) {
+                showNotification('❌ Please enter a video URL!', 'error');
+                return;
+            }
+            
+            let title = url.split('/').pop();
+            if (title.length > 30) title = title.substring(0, 27) + '...';
+            
+            addVideoToPlaylist(title, url, false);
+            document.getElementById('videoUrlInput').value = '';
+        }
+
+        // Handle imported file
+        function handleImportedFile(file) {
+            if (!file) return;
+            
+            // Check if video file
+            if (!file.type.startsWith('video/')) {
+                showNotification('❌ Please select a video file!', 'error');
+                return;
+            }
+            
+            const url = URL.createObjectURL(file);
+            const title = file.name;
+            
+            addVideoToPlaylist(title, url, true);
+        }
+
+        // Delete video from playlist
+        function deleteVideo(index) {
+            if (confirm(`Delete "${playlist[index].title}" from playlist?`)) {
+                // If it's a local file URL, revoke it to free memory
+                if (playlist[index].isLocal && playlist[index].url.startsWith('blob:')) {
+                    URL.revokeObjectURL(playlist[index].url);
+                }
+                
+                playlist.splice(index, 1);
+                
+                if (currentVideoIndex >= playlist.length) {
+                    currentVideoIndex = playlist.length - 1;
+                }
+                
+                if (playlist.length === 0) {
+                    currentVideoIndex = -1;
+                    video.src = '';
+                    video.poster = 'https://via.placeholder.com/800x450?text=No+Video+Selected';
+                } else if (currentVideoIndex >= 0 && currentVideoIndex < playlist.length) {
+                    loadVideo(currentVideoIndex);
+                } else if (playlist.length > 0) {
+                    loadVideo(0);
+                }
+                
+                savePlaylist();
+                renderPlaylist();
+                showNotification('🗑️ Video removed from playlist', 'info');
+            }
+        }
+
+        // Render playlist
+        function renderPlaylist() {
+            const container = document.getElementById('playlistItems');
+            if (playlist.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:30px; color:#999;">📭 No videos. Import or add URL above!</div>';
+                savePlaylist();
+                return;
+            }
+
+            container.innerHTML = playlist.map((videoItem, index) => `
+                <div class="playlist-item ${currentVideoIndex === index ? 'active' : ''}" onclick="loadVideo(${index})">
+                    <div class="playlist-thumb">${videoItem.isLocal ? '📁' : '🌐'}</div>
+                    <div class="playlist-info">
+                        <div class="playlist-title">${escapeHtml(videoItem.title)}</div>
+                        <div class="playlist-duration">${videoItem.duration}</div>
+                    </div>
+                    <button class="delete-video" onclick="event.stopPropagation(); deleteVideo(${index})">🗑️</button>
+                </div>
+            `).join('');
+            savePlaylist();
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Update progress
+        function updateProgress() {
+            if (video.duration && !isNaN(video.duration)) {
+                const percent = (video.currentTime / video.duration) * 100;
+                progressFilled.style.width = `${percent}%`;
+                currentTimeSpan.textContent = formatTime(video.currentTime);
+                durationSpan.textContent = formatTime(video.duration);
+                
+                if (playlist[currentVideoIndex] && playlist[currentVideoIndex].duration === "0:00") {
+                    playlist[currentVideoIndex].duration = formatTime(video.duration);
+                    savePlaylist();
+                    renderPlaylist();
+                }
+            }
+        }
+
+        // Seek video
+        function seek(e) {
+            if (video.duration) {
+                const rect = progressBar.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                video.currentTime = percent * video.duration;
+            }
+        }
+
+        // Next video
+        function nextVideo() {
+            if (playlist.length > 0 && currentVideoIndex + 1 < playlist.length) {
+                loadVideo(currentVideoIndex + 1);
+            } else if (playlist.length > 0) {
+                loadVideo(0);
+            }
+        }
+
+        // Previous video
+        function prevVideo() {
+            if (playlist.length > 0 && currentVideoIndex - 1 >= 0) {
+                loadVideo(currentVideoIndex - 1);
+            } else if (playlist.length > 0) {
+                loadVideo(playlist.length - 1);
+            }
+        }
+
+        // ============ EVENT LISTENERS ============
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                video.pause();
+                playPauseBtn.textContent = '▶️';
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            video.pause();
+            video.currentTime = 0;
+            playPauseBtn.textContent = '▶️';
+        });
+
+        prevBtn.addEventListener('click', prevVideo);
+        nextBtn.addEventListener('click', nextVideo);
+
+        muteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            muteBtn.textContent = video.muted ? '🔇' : '🔊';
+            volumeSlider.value = video.muted ? 0 : (video.volume * 100);
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            video.volume = e.target.value / 100;
+            video.muted = false;
+            muteBtn.textContent = '🔊';
+        });
+
+        speedSelect.addEventListener('change', (e) => {
+            video.playbackRate = parseFloat(e.target.value);
+        });
+
+        fullscreenBtn.addEventListener('click', () => {
+            if (video.requestFullscreen) video.requestFullscreen();
+        });
+
+        pipBtn.addEventListener('click', () => {
+            if (video.requestPictureInPicture) video.requestPictureInPicture();
+        });
+
+        video.addEventListener('timeupdate', updateProgress);
+        video.addEventListener('loadedmetadata', () => {
+            durationSpan.textContent = formatTime(video.duration);
+        });
+        video.addEventListener('ended', nextVideo);
+        progressBar.addEventListener('click', seek);
+
+        // ============ FILE IMPORT HANDLERS ============
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleImportedFile(e.target.files[0]);
+            }
+            fileInput.value = '';
+        });
+
+        // Drag and drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                handleImportedFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Space') {
+                e.preventDefault();
+                playPauseBtn.click();
+            } else if (e.key === 'ArrowLeft') {
+                video.currentTime -= 5;
+            } else if (e.key === 'ArrowRight') {
+                video.currentTime += 5;
+            } else if (e.key === 'ArrowUp') {
+                video.volume = Math.min(video.volume + 0.1, 1);
+                volumeSlider.value = video.volume * 100;
+            } else if (e.key === 'ArrowDown') {
+                video.volume = Math.max(video.volume - 0.1, 0);
+                volumeSlider.value = video.volume * 100;
+            } else if (e.key === 'f' || e.key === 'F') {
+                fullscreenBtn.click();
+            }
+        });
+
+        // Initialize
+        loadPlaylist();
+    </script>
+</body>
+</html>
